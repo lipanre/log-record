@@ -20,6 +20,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.expression.Expression;
+import org.springframework.expression.ParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
@@ -279,17 +280,17 @@ public class SystemLogAspect {
     }
 
     private boolean parseParamToBoolean(String spel, StandardEvaluationContext context) {
-        Expression conditionExpression = parser.parseExpression(spel);
+        Expression conditionExpression = parser.parseExpression(spel, ParserContext.TEMPLATE_EXPRESSION);
         return Boolean.TRUE.equals(conditionExpression.getValue(context, Boolean.class));
     }
 
     private String parseParamToString(String spel, StandardEvaluationContext context) {
-        Expression bizIdExpression = parser.parseExpression(spel);
+        Expression bizIdExpression = parser.parseExpression(spel, ParserContext.TEMPLATE_EXPRESSION);
         return bizIdExpression.getValue(context, String.class);
     }
 
     private String parseParamToStringOrJson(String spel, StandardEvaluationContext context) {
-        Expression msgExpression = parser.parseExpression(spel);
+        Expression msgExpression = parser.parseExpression(spel, ParserContext.TEMPLATE_EXPRESSION);
         Object obj = msgExpression.getValue(context, Object.class);
         if (obj != null) {
             return obj instanceof String ? (String) obj : JsonUtil.safeToJsonString(obj);
