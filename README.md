@@ -1,2 +1,3 @@
 > [!IMPORTANT]
-> 本项目基于：https://github.com/qqxx6661/log-record项目进行调整，将spel表达式解析调整为#{}
+> 本项目基于：https://github.com/qqxx6661/log-record
+> 进行调整，将spel表达式解析调整为#{}
